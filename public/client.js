@@ -1,75 +1,22 @@
-// client-side js
-// run by the browser each time your view template referencing it is loaded
-
-(function(){
-  console.log('hello world :o');
-  
-  let dreams = [];
-  
-  // define variables that reference elements on our page
-  const dreamsList = document.getElementById('dreams');
-  const dreamsForm = document.forms[0];
-  
-  const dreamInput = dreamsForm ? dreamsForm.elements['dream'] : '';
-  
-  // a helper function to call when our request for dreams is done
-  const getDreamsListener = function() {
-    // parse our response to convert to JSON
-    dreams = JSON.parse(this.responseText);
-    
-    // iterate through every dream and add it to our page
-    dreams.forEach( function(row) {
-      appendNewDream(row.item);
-    });
-  }
-  
-  // request the dreams from our app's sqlite database
-  const dreamRequest = new XMLHttpRequest();
-  dreamRequest.onload = getDreamsListener;
-  dreamRequest.open('get', '/getItems');
-  dreamRequest.send();
-  
-  // a helper function that creates a list item for a given dream
-  const appendNewDream = function(dream) {
-    const newListItem = document.createElement('li');
-    newListItem.innerHTML = dream;
-    dreamsList.appendChild(newListItem);
-  }
-  
-  // a helper function that creates a list item for a given dream
-  const postNewDream = function(dream) {
-    console.log(dream);
-    // url (required), options (optional)
-    fetch('/postItems', {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        item: dream
-      })
-    }).then(function(response) {
-    }).catch(function(err) {
-      // Error :(
-    });    
-  }
-  
-  // listen for the form to be submitted and add a new dream when it is
-  if (dreamsForm) {
-    dreamsForm.onsubmit = function(event) {
-      // stop our form submission from refreshing the page
-      event.preventDefault();
-
-      // get dream value and add it to the list
-      dreams.push(dreamInput.value);
-      appendNewDream(dreamInput.value);
-      postNewDream(dreamInput.value);
-
-      // reset form 
-      dreamInput.value = '';
-      dreamInput.focus();
-    };
-  }
-  
-})()
+"use strict";
+let form = document.querySelector('form');
+let sendNewListItem = (evt) => {
+  let list = document.querySelector('#list').value;
+  let item = document.querySelector('#item').value;
+  let data = {list, item};
+  let url = "/addItem";
+  evt.preventDefault();
+  return fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      'content-type': 'application/json'
+    },    
+    body: JSON.stringify(data)
+  }).then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+};
+form.addEventListener("submit", sendNewListItem);
