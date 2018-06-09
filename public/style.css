@@ -1,9 +1,9 @@
 /* styles */
 /* called by your view template */
 
-* {
+/* * {
   box-sizing: border-box;
-}
+} */
 
 body {
   font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
@@ -73,4 +73,42 @@ footer {
   margin-top: 50px;
   padding-top: 25px;
   border-top: 1px solid lightgrey;
+}
+
+
+/*** columns ***/
+
+#items {
+  columns: 15em;
+  /* column-count: 2; */
+  column-gap: 1em;
+  margin-bottom: 1em;
+  /* border: 1px solid purple; */
+}
+
+#items .item {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid; /* Firefox is dumb */
+  break-inside: avoid;
+}
+
+/* pretty it up! */
+
+#items .item {
+  border-radius: .5em;
+  margin: 1em 0;
+  background-color: #CCC;
+  padding: .5em;
+}
+
+#items .item:first-child {
+  margin-top: 0;
+}
+
+#items .item:nth-child(odd) {
+  background-color: #f59fff;
+}
+
+#msg {
+  margin-bottom: 15px;
 }

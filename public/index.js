@@ -5,10 +5,11 @@ let getListItems = () => {
   .then(response => {
     console.log(response);
     response.json().then( (data) => {
-        let ul = document.querySelector("ul#items");
+        let ul = document.querySelector("#items");
         for (var i = 0; i < data.length; i++) {
-            var li = document.createElement('li');
+            var li = document.createElement('article');
             li.innerText = data[i].item;
+            li.className = "item";
             ul.appendChild(li);
         }
     });
