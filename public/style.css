@@ -33,7 +33,7 @@ form {
   border-radius: 3px;
 }
 
-input {
+input, select {
   display: block;
   margin-bottom: 10px;
   padding: 5px;
@@ -111,4 +111,10 @@ footer {
 
 #msg {
   margin-bottom: 15px;
+}
+
+#items .heading {
+  background-color: blue !important;
+  color: white;
+  font-weight: bold;
 }

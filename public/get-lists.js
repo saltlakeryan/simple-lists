@@ -14,4 +14,15 @@ let getLists = () => {
 getLists().then( data => {
     console.log("HERE");
     console.log(data);
+    var sl = document.createElement('select');
+    sl.name = "list";
+    sl.id = "list";
+    data.forEach( lst => {
+        var opt = document.createElement('option');
+        opt.value = lst;
+        opt.innerText = lst;
+        sl.appendChild(opt);
+    });
+    var listElem = document.querySelector("#list");
+    listElem.replaceWith(sl);
 });
