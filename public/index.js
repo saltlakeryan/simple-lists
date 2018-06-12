@@ -28,4 +28,27 @@ let getListItems = () => {
   });
 };
 
-getListItems();
+
+var app = new Vue({
+    el: '#items-container',
+    data: {
+        listItems: []
+    },
+    mounted: () => {
+       //this.getItems();
+    },
+    methods: {
+        getItems() {
+            this.$http.get('/getItems').then(response => {
+            // get body data
+                this.listItems = response.body;
+            });
+        }
+    }
+});
+
+Vue.use(VueResource);
+
+
+
+// getListItems();

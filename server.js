@@ -46,6 +46,10 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/list-items.html');
 });
 
+app.get("/test", function (request, response) {
+  response.sendFile(__dirname + '/views/test.html');
+});
+
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/add", function (request, response) {
   response.sendFile(__dirname + '/views/add-to-list.html');
