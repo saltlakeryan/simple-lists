@@ -93,6 +93,15 @@ app.post('/addList', function(request, response) {
   });
 });
 
+app.post('/deleteItem', function(request, response) {
+  db.serialize(function() {
+    var json = request.body;
+    console.log(json);
+    var item = json.item;
+    // db.run("UPDATE... (?)",list);
+    // response.send(JSON.stringify(json));
+  });
+});
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
