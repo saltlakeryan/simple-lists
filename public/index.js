@@ -1,41 +1,12 @@
 "use strict";
-let getListItems = () => {
-  let url = "/getItems";
-  return fetch(url)
-  .then(response => {
-        return response.json();
-    })
-  .then( (data) => {
-    data = _.groupBy(data, 'list');
-    console.log(data);
-    let ul = document.querySelector("#items");
-    _.each(data, (items, list) => {
-        var heading = document.createElement('article');
-        heading.className = "item heading";
-        heading.innerText = list;
-        ul.appendChild(heading);
 
-        for (var i = 0; i < items.length; i++) {
-            var li = document.createElement('article');
-            li.innerText = items[i].item;
-            li.className = "item";
-            ul.appendChild(li);
-        }
-    })
-  })
-  .catch(error => {
-    console.log(error);
-  });
-};
-
-
-var app = new Vue({
-    el: '#items-container',
+var vue = new Vue({
+    el: '#vue-app',
     data: {
         listItems: []
     },
-    mounted: () => {
-       //this.getItems();
+    mounted() {
+       this.getItems();
     },
     methods: {
         getItems() {
@@ -44,11 +15,23 @@ var app = new Vue({
                 this.listItems = response.body;
             });
         }
+    },
+    computed: {
+        byList() {
+            var flat = [];
+            let grps = _.groupBy(this.listItems, 'list');
+            for(var g in grps) {
+                flat.push({name: g, className: "item heading"});
+                for (var l in grps[g]) {
+                    var li = grps[g][l];
+                    if (li.item) {
+                        flat.push({name: li.item, className: "item"});
+                    }
+                }
+            }
+            return flat;
+        }
     }
 });
 
 Vue.use(VueResource);
-
-
-
-// getListItems();

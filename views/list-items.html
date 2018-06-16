@@ -19,14 +19,18 @@
     </header>
 
     <main>
-      <section id="items-container">
-          {{ listItems }}
-        <div id="items"></div>
+      <section id="vue-app">
+        <div id="items">
+          <article :class="li.className" v-for="li in byList">
+            {{li.name}}
+          </article>
+        </div>
       </section>
       <a href="/add" class="button">Add to List</a>
     </main>
 
     <!-- import the webpage's client-side javascript file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
