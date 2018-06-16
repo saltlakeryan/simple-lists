@@ -11,9 +11,19 @@ var vue = new Vue({
     methods: {
         getItems() {
             this.$http.get('/getItems').then(response => {
-            // get body data
                 this.listItems = response.body;
             });
+        },
+        deleteItem(event) {
+            var name = event.currentTarget.dataset.name;
+            console.log(name);
+            for (var i in this.listItems) {
+                var li = this.listItems[i];
+                console.log(li);
+                if (li.item == name) {
+                    this.listItems.splice(i, 1);
+                }
+            }
         }
     },
     computed: {

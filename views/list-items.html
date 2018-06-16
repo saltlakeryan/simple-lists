@@ -23,6 +23,7 @@
         <div id="items">
           <article :class="li.className" v-for="li in byList">
             {{li.name}}
+            <button @click="deleteItem" :data-name="li.name" class="finished" type="button">X</button>
           </article>
         </div>
       </section>
