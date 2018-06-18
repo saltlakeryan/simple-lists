@@ -5,11 +5,13 @@ import {ListItem, ListItemComponent} from './ListItem.js';
 
 var vue = new Vue({
     el: '#vue-app',
-    template: `<list-item :list="list" :item="item"/>`,
+    template: `<list-item v-bind:listItem="listItem"/>`,
     data() {
-        return new ListItem("todo", "buy milk");
-    },
-    mounted() {
-    },
+        return {
+            listItem: new ListItem("abc", "123")
+        }
+    }
 });
 
+window.vue = vue;
+window.ListItem = ListItem;

@@ -8,8 +8,8 @@ class ListItem {
 }
 
 var ListItemComponent =  Vue.component('list-item', {
-    props: ['list', 'item'],
-    template: `<div>{{list}} - {{item}}</div>`,
+    props: ['listItem'],
+    template: `<div>{{listItem.list}} - {{listItem.item}}</div>`,
   });
   
 export {ListItem, ListItemComponent} ;
