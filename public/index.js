@@ -24,6 +24,8 @@ var vue = new Vue({
                     this.listItems.splice(i, 1);
                 }
             }
+            this.$http.post('/deleteItem', {name}).then(response => {
+            });
         }
     },
     computed: {
