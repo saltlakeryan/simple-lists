@@ -23,7 +23,6 @@ var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database(dbFile);
 
 function initDb() {
-  db.run(`DROP TABLE ListItems;`);
   db.run(`CREATE TABLE if not exists ListItems (list TEXT, 
     item TEXT, 
     created_at VARCHAR(30),
