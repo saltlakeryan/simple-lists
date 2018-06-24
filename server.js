@@ -23,12 +23,13 @@ var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database(dbFile);
 
 function initDb() {
-    db.run(`CREATE TABLE if not exists ListItems (list TEXT, 
-                              item TEXT, 
-                              created_at VARCHAR(30),
-                              completed_at VARCHAR(30)
-                            )`);
-    db.run('CREATE TABLE if not exists Lists (list TEXT)');
+  db.run(`DROP TABLE ListItems;`);
+  db.run(`CREATE TABLE if not exists ListItems (list TEXT, 
+    item TEXT, 
+    created_at VARCHAR(30),
+    completed_at VARCHAR(30)
+  )`);
+  db.run('CREATE TABLE if not exists Lists (list TEXT)');
 };
 
 // if ./.data/sqlite.db does not exist, create it, otherwise print records to console
@@ -61,7 +62,7 @@ app.get("/newList", function (request, response) {
 });
 
 app.get('/getItems', function(request, response) {
-  db.all('SELECT list, item from ListItems', function(err, rows) {
+  db.all('SELECT list, item from ListItems WHERE completed_at is null', function(err, rows) {
     response.send(JSON.stringify(rows));
   });
 });
@@ -98,7 +99,7 @@ app.post('/deleteItem', function(request, response) {
     var json = request.body;
     console.log(json);
     var item = json.name;
-    db.run("DELETE FROM ListItems where item = (?)",item);
+    db.run("UPDATE ListItems set completed_at = ? where item = ?",new Date().toISOString(), item);
     response.send(JSON.stringify(json));
   });
 });
