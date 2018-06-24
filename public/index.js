@@ -33,11 +33,11 @@ var vue = new Vue({
             var flat = [];
             let grps = _.groupBy(this.listItems, 'list');
             for(var g in grps) {
-                flat.push({name: g, className: "item heading"});
+                flat.push({name: g, className: "item heading", type: "heading"});
                 for (var l in grps[g]) {
                     var li = grps[g][l];
                     if (li.item) {
-                        flat.push({name: li.item, className: "item"});
+                        flat.push({name: li.item, className: "item", type: "item"});
                     }
                 }
             }
